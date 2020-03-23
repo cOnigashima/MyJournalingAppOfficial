@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
 
     android:id="@+id/list_card_view_item"
     android:layout_width="match_parent"
@@ -17,15 +18,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/journaling_item_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:padding="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             android:text="ここにタイトルが入ります"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/journaling_item_sentence"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,10 +39,17 @@
         <TextView
             android:id="@+id/journaling_item_sentence"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="85dp"
             android:ellipsize="end"
+            android:padding="8dp"
+            android:paddingBottom="0dp"
             android:text="ここに内容が入ります"
+            tools:text="A secondary color provides more ways to accent and distinguish your product. Having a secondary color is optional, and should be applied sparingly to accent select parts of your UI.
+            If you don’t have a secondary color, your primary color can also be used to accent elements.
+            Secondary colors are best for:Floating action buttonsSelection controls, like sliders and switchesHighlighting selected textProgress barsLinks and headlines"
             app:layout_constraintBottom_toTopOf="@id/journaling_item_create_date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/journaling_item_title" />
 
@@ -45,6 +58,8 @@
             android:id="@+id/journaling_item_create_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:paddingTop="2dp"
             android:text="ここに日付が入るんだぜ"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
