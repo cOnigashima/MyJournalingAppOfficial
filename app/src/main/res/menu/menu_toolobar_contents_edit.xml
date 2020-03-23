@@ -1,0 +1,11 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.yasushicohi.myjournalingapp.JournalingContentEditActivity">
+    <item
+        android:id="@+id/edit_back_arrow_button"
+        android:icon="@drawable/round_arrow_back_white"
+        android:title="@string/action_back_arrow"
+        app:showAsAction="always" />
+</menu>

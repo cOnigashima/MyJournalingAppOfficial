@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".JournalingContentEditActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/edit_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="?attr/colorPrimary"
+        app:navigationIcon="@drawable/round_arrow_back_white"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:id="@+id/journaling_content_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="お題がここに入ります!" />
+
+    <TextView
+        android:id="@+id/content_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="日付" />
+
+    <TextView
+        android:id="@+id/timer_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10 : 00" />
+
+    <EditText
+        android:id="@+id/journaling_content_edit_detail_text"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" />
+
+    <Button
+        android:id="@+id/time_count_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="カウント開始" />
+
+</LinearLayout>
