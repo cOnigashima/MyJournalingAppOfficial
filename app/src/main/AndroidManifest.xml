@@ -25,7 +25,8 @@
         </activity>
         <activity
             android:name="com.yasushicohi.myjournalingapp.JournalingContentEditActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
     </application>
 
 </manifest>

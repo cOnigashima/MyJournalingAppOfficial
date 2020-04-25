@@ -12,7 +12,6 @@
     android:layout_marginBottom="4dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp"
-
     card_view:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,6 +28,7 @@
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="ここにタイトルが入ります"
+            android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/journaling_item_sentence"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
             android:id="@+id/journaling_item_create_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="6dp"
             android:paddingTop="2dp"
             android:text="ここに日付が入るんだぜ"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="journaling_string_array">
+        <item>私の強みについて</item>
+        <item>私が得意なことについて</item>
+        <item>私が好きなことについて</item>
+        <item>今日学んだことや感謝すべきことについて</item>
+        <item>今日出来た他人に施した親切について</item>
+        <item>今日の出来事とそれについて思ったことは？</item>
+    </string-array>
+
+</resources>

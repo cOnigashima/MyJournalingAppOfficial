@@ -5,38 +5,32 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.yasushicohi.myjournalingapp.JournalingContentsDisplayActivity.Companion.KEY_CONTENT_ID
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_journaling_content_edit.*
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 
 class JournalingContentEditActivity : AppCompatActivity() {
-
-    companion object {
-        const val TEN_MINUTE = 600
-    }
 
     var mContentId :Long = 0
     var mContentIdForEdit :Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_journaling_content_edit)
 
         mContentIdForEdit = intent.getIntExtra(KEY_CONTENT_ID,0)
+
 
         edit_toolbar.setNavigationOnClickListener {
             //　端末バックキーもoverrideをした方がいい。
@@ -55,84 +49,66 @@ class JournalingContentEditActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.time_count_button).
-            setOnClickListener {
-                startCountDown()
+        subject_list_button.setOnClickListener {
+            selectSubjectsDialog()
         }
 
-
         content_date.text = creationDate()
-
-
         fillInTextView(mContentIdForEdit)
 
     }
 
+    fun selectSubjectsDialog(){
+        val alertDialog: AlertDialog? = this.let {
+            val builder = AlertDialog.Builder(it)
+            val itemList = getStringArrayItems()
+            val items = arrayOf(itemList[0], itemList[1], itemList[2])
+            val defaultItem = -1 // デフォルトでチェックされているアイテム
+            builder.apply {
+                var checkedItem  = journaling_content_title.text.toString()
+                setSingleChoiceItems(items,defaultItem) { dialog, id ->
+                    // do nothing
+                    checkedItem = items[id].toString()
+                }
 
-    fun startCountDown(){
+                setTitle("お題を選んでください")
 
-        val timerDisplay = findViewById<TextView>(R.id.timer_display)
-        var d : Disposable
-        // TODO 一回ボタンを押して開始したら押せないようにするか、停止する。
+                setPositiveButton("選択") { dialog, id ->
+                    journaling_content_title.setText(checkedItem)
+                }
 
-        val observable : Observable<Long>  =  Observable.interval(1, TimeUnit.SECONDS)
-        // d は必要　"The result of subscribe is not used"
-         d = observable
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map(Function<Long, Long> {
-                return@Function TEN_MINUTE - 1 - it //itはどんどんカウントを増していく
-            })
+                setNegativeButton("キャンセル") { dialog, id ->
+                    dialog.dismiss()
+                }
 
-            .subscribe{
-                // もうKotlinがわからない
-                // itがいわゆるonNextで返される値。
-
-                // 分数で　format　
-                //　これformat使う方がええな。
-                //timerDisplay.text = ((it/60).toString() + " : " + (it%60).toString())
-                // format("" , intかLongじゃないとダメ。多分Long , )
-                // はぁ、楽しかった。。。
-                //　ここは、onNextでござる。
-                timerDisplay.text = String.format(" %02d : %02d ", (it / 60), (it % 60))
-
-                // TimeUnit.SECONDS.toMinutes(
-                // onCompleteとかはないから？ってとやろう？？
-                //TODO 0になったら、トーストを出して、停止する。
-                // 分数を選べるようにする。
+                // 全部のお題から選べるようにする。
+                // setNeutralButton("全て見る") {dialog, id -> }
             }
+            // Set other dialog properties
+            // Create the AlertDialog
+            builder.create()
+        }
+        alertDialog?.show()
+    }
 
+    fun getStringArrayItems() :ArrayList<CharSequence>{
+        val array = resources.getStringArray(R.array.journaling_string_array).toMutableList()
+        val arrayList = ArrayList<CharSequence>()
+        var randomInt : Int
 
-//                     Javaの場合。これで一生頑張っていた、JavaだったらこれでOK。
-//                     new Observer<Long>() {
-//                    @Override
-//                    public void onSubscribe(Disposable d) {
-//                        disposable = d;
-//                    }
-//
-//                    @Override
-//                    public void onNext(Long aLong) {
-//                        onTick(aLong);
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    @Override
-//                    public void onComplete() {
-//                        onFinish();
-//                    }
-//                });
+        for (i in 1..3){
+            randomInt = Random.nextInt(array.size)
+            arrayList.add(array[randomInt])
+            array.removeAt(randomInt)
+        }
 
-
+        return arrayList
     }
 
     fun saveContent(){
         if(mContentIdForEdit != 0) mContentId = mContentIdForEdit.toLong()
 
-        val inputTitleText = findViewById<TextView>(R.id.journaling_content_title).text.toString()
+        val inputTitleText = findViewById<EditText>(R.id.journaling_content_title).text.toString()
         val inputEditText = findViewById<EditText>(R.id.journaling_content_edit_detail_text).text.toString()
 
         val single: Single<Long> =
