@@ -29,6 +29,7 @@ class JournalingContentLIstActivity : AppCompatActivity() {
             .subscribe(
                 {
                     Toast.makeText(this, "拾ってきたよ", Toast.LENGTH_SHORT).show()
+                    // SQLでやれ
                     it.reverse()
                     //RecyclerViewにAdapterとLayoutManagerを設定
                     recyclerView.also { recyclerView: RecyclerView ->
